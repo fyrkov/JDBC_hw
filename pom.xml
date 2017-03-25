@@ -26,6 +26,12 @@
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.oracle/orai18n -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>orai18n</artifactId>
+            <version>11.2.0.3</version>
+        </dependency>
 
     </dependencies>
 
