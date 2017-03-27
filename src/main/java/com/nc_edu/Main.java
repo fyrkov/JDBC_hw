@@ -2,8 +2,8 @@ package com.nc_edu;
 
 import java.sql.*;
 import java.util.*;
-
 import oracle.jdbc.*;
+import static com.nc_edu.SQLUtils.*;
 
 public class Main {
 
@@ -42,7 +42,7 @@ public class Main {
                 if (SEL_CMD.equalsIgnoreCase(cmd)) {
                     System.out.println("Type id : ");
                     String arg = sc.next();
-                    SQLUtils.execSelById(arg, conn);
+                    execSelById(arg, conn);
                 }
                 if (INS_CMD.equalsIgnoreCase(cmd)) {
                     List<String> params = new LinkedList<>();
@@ -52,23 +52,22 @@ public class Main {
                         String arg = sc.next();
                         params.add(arg);
                     });
-                    SQLUtils.execInsert(params, conn);
+                    execInsert(params, conn);
                 }
                 if (DEL_CMD.equalsIgnoreCase(cmd)) {
                     System.out.println("Type id : ");
                     String arg = sc.next();
-                    SQLUtils.execDelById(arg, conn);
+                    execDelById(arg, conn);
                 }
                 if (FIND_CMD.equalsIgnoreCase(cmd)) {
                     System.out.println("Type dept or name : ");
                     String arg = sc.next();
-                    SQLUtils.execFind(arg, conn);
+                    execFind(arg, conn);
                 }
             }
         } catch (SQLException e) {
             System.out.println("Could not establish connection to DB");
 //            e.printStackTrace();
         }
-
     }
 }
