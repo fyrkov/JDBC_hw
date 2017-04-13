@@ -20,12 +20,14 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:ojdbc7:12.1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:xdb6:12.1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:orai18n:12.1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:xmlparserv2:12.1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:oraclepki:12.1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:osdt_cert:12.1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle.jdbc:osdt_core:12.1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle.jdbc:ojdbc6" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.21" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.7.RELEASE" level="project" />
   </component>
 </module>
