@@ -1,4 +1,4 @@
-package com.nc_edu;
+package com.nc_edu.controller;
 
 /**
  * Created by anch0317 on 13.04.2017.

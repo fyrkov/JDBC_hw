@@ -6,10 +6,6 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<context:component-scan base-package="com.nc_edu.launcher" />
-
-	<import resource="classpath:spring-controller.xml" />
-	<import resource="classpath:spring-repository.xml" />
-	<import resource="classpath:spring-service.xml" />
+	<context:component-scan base-package="com.nc_edu.repository" />
 
 </beans>

@@ -1,4 +1,4 @@
-package com.nc_edu;
+package com.nc_edu.repository;
 
 import java.util.List;
 

@@ -1,6 +1,9 @@
-package com.nc_edu;
+package com.nc_edu.controller;
 
-import org.springframework.context.annotation.Bean;
+import com.nc_edu.service.IService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -14,7 +17,9 @@ import java.util.Scanner;
 @Component
 public class TUIImpl implements TUI {
 
-    private IService service = new ServiceImpl();
+    @Autowired
+    private IService service;
+    private Logger log = LoggerFactory.getLogger(TUIImpl.class);
 
     private static final String EXIT_CMD = "exit";
     private static final String SEL_CMD = "select";
@@ -36,13 +41,12 @@ public class TUIImpl implements TUI {
             cmd = sc.next();
             if (EXIT_CMD.equalsIgnoreCase(cmd)) {
                 done = true;
+                service.exit();
                 sc.close();
-                //todo release connection, closing app (in launcher)
             }
             if (SEL_CMD.equalsIgnoreCase(cmd)) {
                 System.out.println("Type id : ");
                 String arg = sc.next();
-//                execSelById(arg, conn);
                 service.select(arg);
             }
             if (INS_CMD.equalsIgnoreCase(cmd)) {
@@ -53,19 +57,16 @@ public class TUIImpl implements TUI {
                     String arg = sc.next();
                     params.add(arg);
                 });
-//                execInsert(params, conn);
                 service.insert(params);
             }
             if (DEL_CMD.equalsIgnoreCase(cmd)) {
                 System.out.println("Type id : ");
                 String arg = sc.next();
-//                execDelById(arg, conn);
                 service.delete(arg);
             }
             if (FIND_CMD.equalsIgnoreCase(cmd)) {
                 System.out.println("Type dept or name : ");
                 String arg = sc.next();
-//                execFind(arg, conn);
                 service.find(arg);
             }
         }

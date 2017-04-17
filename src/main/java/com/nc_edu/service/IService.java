@@ -1,4 +1,4 @@
-package com.nc_edu;
+package com.nc_edu.service;
 
 import java.util.List;
 
