@@ -17,15 +17,9 @@ import java.util.Locale;
 public class LauncherImpl implements ILauncher {
 
     private final Logger log = LoggerFactory.getLogger(LauncherImpl.class);
-    private static TUI tui;
+    private TUI tui;
 
     public final void launch() {
-        Locale.setDefault(Locale.ENGLISH);
-        try {
-            DriverManager.registerDriver(new OracleDriver());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         final ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"spring.xml"});
         tui = (TUI) context.getBean("TUIImpl");

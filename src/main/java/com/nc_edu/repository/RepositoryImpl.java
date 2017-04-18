@@ -1,5 +1,6 @@
 package com.nc_edu.repository;
 
+import oracle.jdbc.OracleDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.sql.*;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by anch0317 on 13.04.2017.
@@ -31,6 +33,8 @@ public class RepositoryImpl implements IRepository {
     @PostConstruct
     final void init() {
         try {
+            Locale.setDefault(Locale.ENGLISH);
+            DriverManager.registerDriver(new OracleDriver());
             conn = DriverManager.getConnection(db_host, db_user, db_password);
             if (conn.isValid(0)) {
                 log.info("Connection established");
@@ -57,10 +61,9 @@ public class RepositoryImpl implements IRepository {
 
     @Override
     public void select(String arg) {
-        try {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM emp, dept WHERE emp.deptno=dept.deptno AND empno=?");
+        try (PreparedStatement st = conn.prepareStatement("SELECT * FROM emp, dept WHERE emp.deptno=dept.deptno AND empno=?");
+             ResultSet rs = st.executeQuery()) {
             st.setString(1, arg);
-            ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 StringBuilder result = new StringBuilder();
                 result.append("Id : ").append(rs.getString("EMPNO"));
@@ -69,8 +72,6 @@ public class RepositoryImpl implements IRepository {
                 result.append("\nPosition: ").append(rs.getString("JOB"));
                 System.out.println(result);
             } else System.out.println("row not found");
-            rs.close();
-            st.close();
         } catch (SQLException e) {
 //            e.printStackTrace();
             System.out.println("invalid params");
@@ -79,13 +80,11 @@ public class RepositoryImpl implements IRepository {
 
     @Override
     public void insert(List<String> params) {
-        try {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO emp VALUES (?,?,?,?,NULL,?,?,?)");
+        try (PreparedStatement st = conn.prepareStatement("INSERT INTO emp VALUES (?,?,?,?,NULL,?,?,?)")) {
             for (int i = 0; i < params.size(); i++) {
                 st.setObject(i + 1, params.get(i));
             }
             int rs = st.executeUpdate();
-            st.close();
             System.out.println(rs + " rows affected");
         } catch (SQLException e) {
 //            e.printStackTrace();
@@ -95,12 +94,11 @@ public class RepositoryImpl implements IRepository {
 
     @Override
     public void delete(String arg) {
-        try {
-            PreparedStatement st = conn.prepareStatement("DELETE FROM emp WHERE empno = ?");
+        try (PreparedStatement st = conn.prepareStatement("DELETE FROM emp WHERE empno = ?")) {
             st.setString(1, arg);
             int rs = st.executeUpdate();
             System.out.println(rs + " row deleted");
-            st.close();
+//            st.close();
         } catch (SQLException e) {
 //            e.printStackTrace();
             System.out.println("invalid params");
@@ -109,13 +107,12 @@ public class RepositoryImpl implements IRepository {
 
     @Override
     public void find(String arg) {
-        try {
-            PreparedStatement st = conn.prepareStatement(
-                    "SELECT * FROM emp JOIN dept ON emp.deptno=dept.deptno " +
-                            "WHERE dept.dname LIKE ? OR emp.ename LIKE ?");
+        try (PreparedStatement st = conn.prepareStatement(
+                "SELECT * FROM emp JOIN dept ON emp.deptno=dept.deptno " +
+                        "WHERE dept.dname LIKE ? OR emp.ename LIKE ?");
+             ResultSet rs = st.executeQuery()) {
             st.setString(1, "%" + arg.toUpperCase() + "%");
             st.setString(2, "%" + arg.toUpperCase() + "%");
-            ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 do {
                     StringBuilder result = new StringBuilder();
@@ -127,8 +124,8 @@ public class RepositoryImpl implements IRepository {
                     System.out.println(result);
                 } while (rs.next());
             } else System.out.println("rows not found");
-            rs.close();
-            st.close();
+//            rs.close();
+//            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
